@@ -40,11 +40,11 @@ int main(void)
 {
     if(open_max())
     {
-        printf("successful!");
+        printf("successful!\n");
     }
     else
     {
-        printf("failure!");
+        printf("failure!\n");
     }
     
 
