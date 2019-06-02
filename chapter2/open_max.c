@@ -38,8 +38,10 @@ long open_max(void)
 
 int main(void)
 {
-    if(open_max())
+    int i = 0;
+    if(i = open_max())
     {
+        printf("%d\n", i);
         printf("successful!\n");
     }
     else
