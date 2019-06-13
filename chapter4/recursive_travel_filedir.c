@@ -79,5 +79,82 @@ static int myftw(char *pathname, Myfunc *func)
 // recursively for each name in the directory
 static int dopath(Myfunc *func)
 {
+    struct stat statbuf;
+    struct dirent *dirp;
+    DIR *dp;
+    int ret, n;
+
+    // stat error
+    if (lstat(fullpath, &statbuf) < 0)
+    {
+        return (func(fullpath, &statbuf, FTW_NS));
+    }
+
+    // not a directory
+    if (S_ISDIR(statbuf.st_mode) == 0)
+    {
+        return (func(fullpath, &statbuf, FTW_F));
+    }
+
+    // it's a directory, first call func() for the directory,
+    // then process each filename in the directory.
+    if((ret = func(fullpath, &statbuf, FTW_D)) != 0)
+    {
+        return (ret);
+    }
+
+    n = strlen(fullpath);
+    
+    // expand path buffer
+    if(n + NAME_MAX + 2 > pathlen)
+    {
+        pathlen *= 2;
+        if ((fullpath = realloc(fullpath, pathlen)) == NULL)
+        {
+            err_sys("realloc failed");
+        }
+    }
+
+    fullpath[n++] = '/';
+    fullpath[n] = 0;
+
+    // can't read directory
+    if ((dp = opendir(fullpath)) == NULL)
+    {
+        return (func(fullpath, &statbuf, FTW_DNR));
+    }
+
+    while ((dirp = readdir(dp)) != NULL)
+    {
+        if (strcmp(dirp->d_name, ".") == 0 || strcmp(dirp->d_name, "..") == 0)
+        {
+            // ignore dot and dot-dot
+            continue;
+        }
+
+        // append name after "/"
+        strcpy(&fullpath[n], dirp->d_name);
+
+        // recursive
+        if ((ret = dopath(func)) != 0)
+        {
+            // time to leave
+            break;
+        }
+    }
+
+    // erase everything from slash onward
+    fullpath[n - 1] = 0;
+
+    if (closedir(dp) < 0)
+    {
+        err_ret("can't close directory %s", fullpath);
+    }
+
+    return (ret);
+}
+
+static int myfunc(const char *pathname, const struct stat *statptr, int type)
+{
     
 }
