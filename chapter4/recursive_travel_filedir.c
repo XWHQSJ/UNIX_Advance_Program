@@ -156,5 +156,32 @@ static int dopath(Myfunc *func)
 
 static int myfunc(const char *pathname, const struct stat *statptr, int type)
 {
-    
+    switch (type)
+    {
+    case FTW_F:
+        switch(statptr->st_mode & S_IFMT){
+            case S_IFREG: nreg ++; break;
+            case S_IFBLK: nblk ++; break;
+            case S_IFCHR: nchr ++; break;
+            case S_IFIFO: nfifo++; break;
+            case S_IFLNK: nslink++;break;
+            case S_IFSOCK:nsock++; break;
+            // directory should have type = FTW_D
+            case S_IFDIR: err_dump("for S_IFDIR for %s", pathname);
+        }
+        break;
+    case FTW_D:
+        ndir ++;
+        break;
+    case FTW_DNR:
+        err_ret("can't read directory %s", pathname);
+        break;
+    case FTW_NS:
+        err_ret("stat error for %s", pathname);
+        break;
+    default:
+        err_dump("unknown type %d for pathname %s", type, pathname);
+    }
+
+    return 0;
 }
