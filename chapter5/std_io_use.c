@@ -1,9 +1,12 @@
+#include "apue.h"
+#include "error.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <libio.h>
 #include <stdlib.h>
 
 void pr_stdio(const char *, FILE *);
+int buffer_size(FILE *);
 
 int main(void)
 {
@@ -24,14 +27,12 @@ int main(void)
 
     if (NULL == fp)
     {
-        fprintf(stderr, "fopen error\n");
-        exit(1);
+        err_sys("fopen error\n");
     }
 
     if (EOF == getc(fp))
     {
-        fprintf(stderr, "getc error\n");
-        exit(1);
+        err_sys("getc error\n");
     }
 
     pr_stdio("/etc/passwd", fp);
@@ -43,11 +44,22 @@ void pr_stdio(const char *name, FILE *fp)
     printf("stream = %s,  ", name);
 
     if (fp->_IO_file_flags & _IO_UNBUFFERED)
+    {
         printf("unbuffered");
+    }
     else if (fp->_IO_file_flags & _IO_LINE_BUF)
+    {
         printf("line buffered");
+    }
     else
+    {
         printf("fully buffered");
+    }
 
-    printf(", buffer size = %ld\n", fp->_IO_buf_end - fp->_IO_buf_base);
+    printf(", buffer size = %d\n", buffer_size(fp));
+}
+
+int buffer_size(FILE *fp)
+{
+    return (fp->_IO_buf_end - fp->_IO_buf_base);
 }
