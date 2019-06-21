@@ -1,4 +1,5 @@
 #include "apue.h"
+#include "error.h"
 #include <stdio.h>
 #include <shadow.h>
 #include <string.h>
