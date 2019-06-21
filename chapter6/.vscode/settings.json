@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "utsname.h": "c",
-        "climits": "c"
+        "climits": "c",
+        "stdlib.h": "c"
     }
 }

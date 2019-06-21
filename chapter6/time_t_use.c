@@ -4,8 +4,9 @@
 
 int main(void)
 {
-    time_t t = INT_MAX;
-    tm *tmp = NULL;
+    time_t t;
+    struct tm *tmp;
+    tmp = NULL;
     char buf[64] = {0};
 
     if (tmp = localtime(&t))
