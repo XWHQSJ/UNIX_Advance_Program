@@ -12,7 +12,7 @@ int main(void)
     doit(RLIMIT_AS);
 #endif
     doit(RLIMIT_CORE);
-    doit(RLIMT_CPU);
+    doit(RLIMIT_CPU);
     doit(RLIMIT_DATA);
     doit(RLIMIT_FSIZE);
 
