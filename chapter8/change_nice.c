@@ -14,7 +14,7 @@
 unsigned long long count;
 struct timeval end;
 
-void check(char *str)
+void checktime(char *str)
 {
     struct timeval tv;
 

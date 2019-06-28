@@ -2,8 +2,63 @@
 #include "error.h"
 #include <sys/times.h>
 
-static void pr_time(clock_t, struct tms *, struct tms *);
+static void pr_times(clock_t, struct tms *, struct tms *);
 static void do_cmd(char *);
+
+int system(const char *cmdstring)
+{
+    pid_t pid;
+    int status;
+
+    if (cmdstring == NULL)
+    {
+        return(1);
+    }
+
+    if ((pid = fork()) < 0)
+    {
+        err_sys("fork error\n");
+    }
+    else if (pid == 0)
+    {
+        execl("/bin/sh", "sh", "-c", cmdstring, (char *)0);
+        _exit(127);
+    }
+    else
+    {
+        while(waitpid(pid, &status, 0) < 0)
+        {
+            if (errno != EINTR)
+            {
+                status = -1;
+                break;
+            }
+        }
+    }
+    
+    return (status);
+}
+
+void pr_exit(int status)
+{
+    if (WIFEXITED(status))
+    {
+        printf("normal termination, exit status = %d\n", WEXITSTATUS(status));
+    }
+    else if (WIFSIGNALED(status))
+    {
+        printf("abnormal termination, signal number = %d%s\n", WTERMSIG(status),
+#ifdef WCOREDUMP
+    __WCOREDUMP(status) ? " (core file generated)" : "");
+#else
+    "");
+#endif
+    }
+    else if (WIFSTOPPED(status))
+    {
+        printf("child stopped, signal number = %d\n", WSTOPSIG(status));
+    }
+}
 
 int main(int argc, char *argv[])
 {
@@ -59,7 +114,7 @@ static void pr_times(clock_t real, struct tms *tmsstart, struct tms *tmsend)
 
     printf(" real: %7.2f\n", real / (double)clktck);
     printf(" user: %7.2f\n", (tmsend->tms_utime - tmsstart->tms_utime) / (double)clktck);
-    printf(" sys: %7.2f\n", (tmsend->stime - tmsstart->tms_stime / (double)clktck));
+    printf(" sys: %7.2f\n", (tmsend->tms_stime - tmsstart->tms_stime / (double)clktck));
     printf(" child user: %7.2f\n", (tmsend->tms_cutime - tmsstart->tms_cutime) / (double)clktck);
     printf(" child sys: %7.2f\n", (tmsend->tms_cstime - tmsstart->tms_cstime) / (double)clktck);
 }

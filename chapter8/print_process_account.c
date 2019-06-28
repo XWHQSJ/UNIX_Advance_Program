@@ -1,4 +1,5 @@
 #include "apue.h"
+#include "error.h"
 #include <sys/acct.h>
 
 #if defined(BSD)
@@ -22,7 +23,7 @@
 #define AXSIG 0
 #endif
 
-#if !define(BSD)
+#if !defined(BSD)
 static unsigned long compt2ulong(comp_t comptime)
 {
     unsigned long val;
@@ -60,7 +61,7 @@ int main(int argc, char *argv[])
 #if defined(BSD)
         acdata.ac_etime, acdata.ac_io,
 #else
-	compt2ulong(acdata.ac_etime), compt2ulong(acddata.ac_io),
+	compt2ulong(acdata.ac_etime), compt2ulong(acdata.ac_io),
 #endif
 #if defined(HAS_AC_STAT)
 	(unsigned char) acdata.ac_stat,
