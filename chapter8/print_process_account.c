@@ -1,6 +1,20 @@
 #include "apue.h"
 #include <sys/acct.h>
 
+#if defined(BSD)
+#define acct acctv2
+#define ac_flag ac_trailer.ac_flag
+#define FMT "%-*.*s e = %.0f, chars = %.0f, %c %c %c %c\n"
+#elif defined(HAS_AC_STAT)
+#define FMT "%-*.*s e = %6ld, chars = %7ld, stat = %3u: %c %c %c %c\n"
+#else
+#define FMT "%-*.*s e = %6ld, chars = %7ld, %c %c %c %c\n"
+#endif
+
+#if defined(LINUX)
+#define acct acct_v3
+#endif
+
 #if !defined(HAS_ACORE)
 #define ACORE 0
 #endif
@@ -8,6 +22,7 @@
 #define AXSIG 0
 #endif
 
+#if !define(BSD)
 static unsigned long compt2ulong(comp_t comptime)
 {
     unsigned long val;
@@ -22,6 +37,7 @@ static unsigned long compt2ulong(comp_t comptime)
 
     return val;
 }
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -40,7 +56,24 @@ int main(int argc, char *argv[])
 
     while (fread(&acdata, sizeof(acdata), 1, fp) == 1)
     {
-        printf(FMT, )
+        printf(FMT, (int)sizeof(acdata.ac_comm),
+#if defined(BSD)
+        acdata.ac_etime, acdata.ac_io,
+#else
+	compt2ulong(acdata.ac_etime), compt2ulong(acddata.ac_io),
+#endif
+#if defined(HAS_AC_STAT)
+	(unsigned char) acdata.ac_stat,
+#endif
+	acdata.ac_flag & ACORE ? 'D' : ' ',
+	acdata.ac_flag & AXSIG ? 'X' : ' ',
+	acdata.ac_flag & AFORK ? 'F' : ' ',
+	acdata.ac_flag & ASU   ? 'S' : ' ');
+    }
+
+    if (ferror(fp))
+    {
+        err_sys("read error\n");
     }
 
     exit(0);
