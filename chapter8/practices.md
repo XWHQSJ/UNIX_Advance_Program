@@ -16,3 +16,4 @@
 
 8.6 见源程序dead_process.c
 
+8.7 见源程序opendir_info.c
