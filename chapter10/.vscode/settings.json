@@ -1,0 +1,26 @@
+{
+    "python.pythonPath": "/home/wanhui/anaconda3/bin/python",
+    // "python.pythonPath": "~/anaconda3/bin/python",
+    // "python.pythonPath": "/usr/bin/python3",
+    // "python.pythonPath": "/usr/bin/python",
+    "workbench.colorTheme": "Andromeda",
+    "files.autoSave": "afterDelay",
+    "editor.fontSize": 15,
+    "python.autoComplete.addBrackets": true,
+    "editor.cursorBlinking": "blink",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--disable-msgs=F405"],
+    "python.linting.pylintEnabled": false,
+    "python.formatting.provider": "yapf",
+    "workbench.colorCustomizations": {
+        "editor.selectionBackground":"#8A8A8A",
+        "editor.selectionHighlightBackground": "#8A8A8A"
+    },
+    "window.zoomLevel": -0.001,
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.fontFamily": "Ubuntu mono",
+    "C_Cpp.clang_format_sortIncludes": true,
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.cppStandard": "c++14",
+    "C_Cpp.workspaceSymbols": "All",
+}
