@@ -1,5 +1,3 @@
-#include "apue.h"
-#include "error.h"
 #include <sys/wait.h>
 #include <errno.h>
 #include <signal.h>
