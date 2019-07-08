@@ -23,7 +23,7 @@ void abort(void)
         fflush(NULL);                       // flush all open stdio streams
     }
 
-    /* Caller can't block SIGABRT; make sure lt's unblocked */
+    /* Caller can't block SIGABRT; make sure it's unblocked */
     sigfillset(&mask);
     sigdelset(&mask, SIGABRT);              // mask has only SIGABRT turned off
     sigprocmask(SIG_SETMASK, &mask, NULL);
