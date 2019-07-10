@@ -20,7 +20,7 @@ void sig_alrm(int signo)
 
 typedef void(*sig_handler)(int);
 
-sig_handler yh_signal(int signo, sig_handler handler)
+sig_handler xwh_signal(int signo, sig_handler handler)
 {
     struct sigaction new_act, old_act;
     bzero(&new_act, sizeof(new_act));
@@ -46,7 +46,7 @@ sig_handler yh_signal(int signo, sig_handler handler)
 
 int main(int argc, char *argv[])
 {
-    if(yh_signal(SIGALRM, sig_alrm) == SIG_ERR)
+    if(xwh_signal(SIGALRM, sig_alrm) == SIG_ERR)
     {
         perror("signal error");
         exit(1);
