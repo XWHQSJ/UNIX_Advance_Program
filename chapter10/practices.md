@@ -26,4 +26,8 @@
 
 10.5 见pdf文件 Implementing Software Timers.pdf
 
-10.6
+10.6 见源程序 sync.c
+
+10.7 如果仅仅调用 _exit，则进程的终止状态不能够表示进程是被 SIGABRT 信号终止的.
+
+10.8 
