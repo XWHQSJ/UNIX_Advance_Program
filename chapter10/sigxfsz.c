@@ -5,13 +5,16 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 #include <errno.h>
 #include <signal.h>
 #include <limits.h>
 #include <pthread.h>
 #include <semaphore.h>
 
-void sig_fzx(int signo) {
+void sig_fzx(int signo) 
+{
     fprintf(stderr, "SIGXFSZ captured\n");
 }
 
@@ -20,30 +23,36 @@ void sig_fzx(int signo) {
 int main(int argc, char const *argv[])
 {
 
-    if (signal(SIGXFSZ, sig_fzx) == SIG_ERR) {
+    if (signal(SIGXFSZ, sig_fzx) == SIG_ERR) 
+    {
         perror("signal error");
         exit(1);
     }
 
     struct rlimit rl;
-    if (getrlimit(RLIMIT_FSIZE, &rl) < 0) {
+    if (getrlimit(RLIMIT_FSIZE, &rl) < 0) 
+    {
         perror("getrlimit error");
         exit(1);
     }
 
     rl.rlim_cur = 1024;
 
-    if (setrlimit(RLIMIT_FSIZE, &rl) < 0) {
+    if (setrlimit(RLIMIT_FSIZE, &rl) < 0) 
+    {
         perror("setrlimit error");
         exit(1);
     }
 
     char buf[BUFSIZE];
     int nread, nwrite;
-    while ((nread = read(STDIN_FILENO, buf, sizeof(buf))) > 0) {
+    while ((nread = read(STDIN_FILENO, buf, sizeof(buf))) > 0) 
+    {
 try_again:
-        if ((nwrite = write(STDOUT_FILENO, buf, nread)) != nread) {
-            if (nwrite < 0) {
+        if ((nwrite = write(STDOUT_FILENO, buf, nread)) != nread) 
+        {
+            if (nwrite < 0) 
+            {
                 fprintf(stderr, "incompletely nwrite = %d bytes\n", nwrite);
                 perror("write error");
                 exit(1);
