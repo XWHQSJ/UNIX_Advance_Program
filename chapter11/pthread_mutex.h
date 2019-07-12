@@ -16,7 +16,7 @@ struct foo *foo_alloc(int id)   // allocate the object
 {
     struct foo *fp;
 
-    if((fp = malloc(sizeof(struct foo))) != NULL)
+    if((fp = (struct foo *)malloc(sizeof(struct foo))) != NULL)
     {
         fp->f_count = 1;
         fp->f_id = id;
