@@ -1,3 +1,9 @@
+/*
+* Compile this program code:
+*   gcc pthread_barrier.c -pthread -O4 -lbsd
+* Because the program include the function "heapsort()" and using threads
+ */
+
 #include "apue.h"
 #include "error.h"
 #include <pthread.h>
