@@ -25,7 +25,7 @@ void * thr_fn1(void *arg)
 
 void *thr_fn2(void *arg)
 {
-    printf("thread 2:\n", arg);
+    printfoo("thread 2:\n", arg);
     pthread_exit((void*)arg);
 }
 
