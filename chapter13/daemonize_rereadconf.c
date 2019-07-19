@@ -8,6 +8,7 @@
 sigset_t mask;
 
 extern int already_running(void);
+extern int lockfile(int);
 
 void reread(void)
 {
