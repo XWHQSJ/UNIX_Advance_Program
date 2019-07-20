@@ -1,5 +1,4 @@
 #include <fcntl.h>
-#include "error.h"
 
 void set_fl(int fd, int flags)
 {

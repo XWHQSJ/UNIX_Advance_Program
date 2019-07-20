@@ -1,4 +1,5 @@
 #include "apue.h"
+#include "error.h"
 #include "set_fl.h"
 #include "clr_fl.h"
 #include <errno.h>
@@ -14,7 +15,7 @@ int main(void)
     ntowrite = read(STDIN_FILENO, buf, sizeof(buf));
     fprintf(stderr, "read %d bytes\n", ntowrite);
 
-    set_f1(STDOUT_FILENO, O_NONBLOCK);                  // set nonblocking
+    set_fl(STDOUT_FILENO, O_NONBLOCK);                  // set nonblocking
 
     ptr = buf;
     while(ntowrite > 0)

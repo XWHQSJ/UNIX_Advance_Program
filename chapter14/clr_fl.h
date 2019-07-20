@@ -1,7 +1,6 @@
 #include <fcntl.h>
-#include "error.h"
 
-void set_fl(int fd, int flags)
+void clr_fl(int fd, int flags)
 {
     int val;
 
