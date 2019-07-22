@@ -1,5 +1,4 @@
 #include "apue.h"
-#include "error.h"
 #include <fcntl.h>
 
 int lock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len)

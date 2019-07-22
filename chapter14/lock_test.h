@@ -1,5 +1,4 @@
 #include "apue.h"
-#include "error.h"
 #include <fcntl.h>
 
 pid_t lock_test(int fd, int type, off_t offset, int whence, off_t len)
