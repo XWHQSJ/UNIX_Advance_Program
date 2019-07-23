@@ -1,3 +1,8 @@
+/*
+* 编译此程序时，需要在编译选项中加上 -lrt，否则会出现"undefined reference to ‘aio_xxx’”这样的错误
+* gcc ROT_sync.c -lrt
+ */
+
 #include "apue.h"
 #include "error.h"
 #include <aio.h>
