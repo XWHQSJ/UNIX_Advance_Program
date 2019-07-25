@@ -29,7 +29,7 @@
 
 14.7 见源程序 pipe_nonblock.c
 
-14.8 见源程序 ROT_sync_std.c
+14.8 略
 
 14.9 writev 都比缓冲区复制，然后一次 write 更快.
 
