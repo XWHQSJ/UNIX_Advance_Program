@@ -1,4 +1,7 @@
 #include "apue.h"
+#include "error.h"
+#include "lock_reg.h"
+#include "lockfile.h"
 #include <fcntl.h>
 #include <errno.h>
 
