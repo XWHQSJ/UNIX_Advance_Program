@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <pthread.h>
+#include <sys/wait.h>
 #include <semaphore.h>
 
 int release_lock(int fd)
