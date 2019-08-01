@@ -76,7 +76,7 @@ void print_flag(struct addrinfo *aip)
     printf(" flag ");
     if(aip->ai_flags == 0)
     {
-        prinf(" 0 ");
+        printf(" 0 ");
     }
     else
     {
@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
 
     if((err = getaddrinfo(argv[1], argv[2], &hint, &ailist)) != 0)
     {
-        er_quit("getaddrinfo error: %s", gai_strerror(err));
+        err_quit("getaddrinfo error: %s", gai_strerror(err));
     }
 
     for(aip = ailist; aip != NULL; aip = aip->ai_next)
