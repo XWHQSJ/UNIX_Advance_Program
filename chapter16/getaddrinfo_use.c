@@ -124,9 +124,8 @@ int main(int argc, char *argv[])
     hint.ai_flags = AI_CANONNAME;
     hint.ai_family = 0;
     hint.ai_socktype = 0;
-    hint.ai_socktype = 0;
     hint.ai_protocol = 0;
-    hint.ai_addrlen = NULL;
+    hint.ai_addrlen = 0;
     hint.ai_canonname = NULL;
     hint.ai_addr = NULL;
     hint.ai_next = NULL;
