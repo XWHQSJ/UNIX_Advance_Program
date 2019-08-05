@@ -1,9 +1,10 @@
 #include "apue.h"
 #include "error.h"
 #include <poll.h>
+#include <pthread.h>
 #include <sys/socket.h>
 #include <sys/msg.h>
-#include <pthread.h>
+
 
 #define NQ  3                       /* number of queues */
 #define MAXMSZ 512                  /* maximum message size */
