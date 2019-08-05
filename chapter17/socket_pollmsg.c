@@ -54,14 +54,16 @@ int main()
 
     for(i = 0; i < NQ; i++)
     {
-        if((qid[i] = msgget((KEY + 1), IPC_CREAT|0666)) < 0)
+        qid[i] = msgget((KEY + i), IPC_CREAT|0666);
+        if(qid[i] < 0)
         {
             err_sys("msgget error");
         }
 
         printf("queue ID %d is %d\n", i, qid[i]);
 
-        if(socketpair(AF_UNIX, SOCK_DGRAM, 0, fd) < 0)
+        int k = socketpair(AF_UNIX, SOCK_DGRAM, 0, fd);
+        if( k < 0)
         {
             err_sys("socketpair error");
         }
@@ -92,7 +94,7 @@ int main()
                     err_sys("read error");
                 }
                 buf[n] = 0;
-                printf("queue id %d, message %s\n", qid[i], buf);
+                printf("queue id %d, message is %s\n", qid[i], buf);
             }
         }
     }

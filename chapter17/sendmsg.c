@@ -24,9 +24,10 @@ int main(int argc, char *argv[])
     }
 
     key = strtol(argv[1], NULL, 0);
-    if((qid = msgget(key, 0)) < 0)
+    qid = msgget(key, 0);
+    if(qid < 0)
     {
-        err_sys("can't open queue key %s", argv[1]);
+        err_sys("can't open queue key = %s", argv[1]);
     }
     memset(&m, 0, sizeof(m));
     strncpy(m.mtext, argv[2], MAXMSZ - 1);
