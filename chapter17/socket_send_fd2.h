@@ -14,7 +14,6 @@
 /* size of control buffer to send/recv one file descriptor */
 #define RIGHTSLEN   CMSG_LEN(sizeof(int))
 #define CREDSLEN    CMSG_LEN(sizeof(struct CREDSTRUCT))
-
 #define CONTROLLEN  (RIGHTSLEN + CREDSLEN)
 
 static struct cmsghdr *cmptr = NULL;        /* malloc'ed first time */
