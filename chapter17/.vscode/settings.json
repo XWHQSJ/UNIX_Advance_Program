@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "open_v2.h": "c",
+        "syslog.h": "c",
+        "apue.h": "c",
+        "error.h": "c"
+    }
+}
