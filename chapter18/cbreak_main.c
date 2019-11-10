@@ -173,6 +173,7 @@ static void sig_catch(int signo)
     exit(0);
 }
 
+
 int main(void)
 {
     int i;
@@ -198,6 +199,7 @@ int main(void)
     {
         err_sys("tty_raw error");
     }
+
 
     printf("Enter raw mode characters, terminate with DELETE\n");
     while((i = read(STDIN_FILENO, &c, 1)) == 1)
